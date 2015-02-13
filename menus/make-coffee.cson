@@ -1,0 +1,5 @@
+# See https://atom.io/docs/latest/creating-a-package#menus for more details
+'context-menu':
+  '.tree-view .file': [
+    {label: 'Convert to coffeescript', command: 'make-coffee:convert'}
+  ]
