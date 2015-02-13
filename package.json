@@ -1,9 +1,8 @@
 {
   "name": "make-coffee",
   "main": "./lib/make-coffee",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Create CoffeeScript version of Javascript files in tree view",
-
   "repository": "https://github.com/JsonHunt/make-coffee",
   "license": "MIT",
   "engines": {
