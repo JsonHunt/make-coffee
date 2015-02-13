@@ -3,3 +3,6 @@ npm-debug.log
 node_modules
 
 make-coffee-test.coffee
+spec/make-coffee-spec.coffee
+spec/make-coffee-view-spec.coffee
+styles/make-coffee.less

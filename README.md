@@ -1,4 +1,4 @@
-# make-coffee package
+# Javascript to CoffeeScript conversion package for [Atom](https://github.com/atom/atom)
 
 An [Atom](https://github.com/atom/atom) package that adds 'Make me a coffee' option to files in [tree view](https://github.com/atom/tree-view).
 Creates a CoffeeScript version of the selected file
