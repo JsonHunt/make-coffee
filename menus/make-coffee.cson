@@ -1,5 +1,5 @@
 # See https://atom.io/docs/latest/creating-a-package#menus for more details
 'context-menu':
-  '.tree-view .file': [
+  '.tree-view .file span[data-name$=".js"]': [
     {label: 'Make me a coffee', command: 'make-coffee:convert'}
   ]
