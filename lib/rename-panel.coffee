@@ -1,6 +1,7 @@
 {$$$, View, TextEditorView} = require 'atom-space-pen-views'
 {CompositeDisposable} = require 'atom'
 fs = require 'fs'
+path = require 'path'
 
 module.exports =
 class FindView extends View
@@ -14,25 +15,15 @@ class FindView extends View
 		@subscriptions.add atom.commands.add @findEditor.element,
 			'core:confirm': =>
 				moduleName = @findEditor.getText()
-				console.log "Creating folder #{modulePath}\\#{moduleName}"
-				fs.mkdir "#{modulePath}\\#{moduleName}", (err)->
-					filename = "#{modulePath}\\#{moduleName}\\#{moduleName}"
-					body = """
-					module.exports = #{moduleName}Controller = ($scope)->
-
-
-					#{moduleName}Controller.$inject = ['$scope']
-					"""
-					fs.writeFile "#{filename}.coffee",body,  (err)->
-						console.log "Coffee created"
-						fs.writeFile "#{filename}.jade",'', (err)->
-							console.log "Jade created"
-							fs.writeFile "#{filename}.styl",'', (err)->
-								console.log "Stylus created"
-								atom.workspace.open "#{filename}.jade"
-
-
-
+				parent = path.dirname modulePath
+				newModulePath = path.join parent, moduleName
+				fs.rename modulePath, newModulePath, (err)->
+					fs.readdir newModulePath, (err,files)->
+						for file in files
+							oldFile = path.join newModulePath, file
+							ext = path.extname file
+							newFile = path.join newModulePath, "#{moduleName}#{ext}"
+							fs.rename oldFile, newFile, (err)-> console.log err if err
 
 	destroy: ->
 		@subscriptions?.dispose()

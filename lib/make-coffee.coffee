@@ -3,6 +3,7 @@ path = require 'path'
 fs = require 'fs'
 S = require 'string'
 MyPanel = require './panel'
+MyRenamePanel = require './rename-panel'
 {CompositeDisposable} = require 'atom'
 
 module.exports = MakeCoffee =
@@ -12,6 +13,7 @@ module.exports = MakeCoffee =
 		@subscriptions.add atom.commands.add 'atom-workspace',
 			"make-coffee:convert": => @convert()
 			"make-coffee:component": => @createComponent()
+			"make-coffee:rename_component": => @renameComponent()
 			"core:cancel": => @destroyPanel()
 			"core:confirm": => @destroyPanel()
 
@@ -46,6 +48,8 @@ module.exports = MakeCoffee =
 		catch error
 				console.log error.description
 				console.log error.stack
+
+
 
 	createComponent: ->
 		try
@@ -82,3 +86,24 @@ module.exports = MakeCoffee =
 		# fs.writeFileSync newPath, result.code
 		# if result.warnings and result.warnings.length > 0
 		#   result.warnings.forEach (warn) -> console.log warn
+
+	renameComponent: ->
+		try
+			treeView = atom.packages.getLoadedPackage('tree-view')
+			treeView = require(treeView.mainModulePath)
+			packageObj = treeView.serialize()
+			source = packageObj.selectedPath
+			console.log "Passing in start value #{source}"
+
+			@epanel = atom.workspace.addTopPanel(
+				item: new MyRenamePanel(source)
+				visible: true
+				priority: 100
+			)
+
+			# @epanel.item.findEditor.setText(source + path.sep)
+			@epanel.item.findEditor.focus()
+
+		catch error
+				console.log error.description
+				console.log error.stack

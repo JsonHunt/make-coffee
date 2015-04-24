@@ -5,4 +5,5 @@
 	]
 	'.tree-view .directory': [
 		{label: 'Make web component', command: 'make-coffee:component'}
+		{label: 'Rename web component', command: 'make-coffee:rename_component'}
 	]
